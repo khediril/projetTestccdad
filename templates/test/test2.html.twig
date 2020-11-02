@@ -1,0 +1,14 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Page 2{% endblock %}   
+
+{% block body %}
+   <h2>{{ msg }}</h2>
+<ul>
+    {% for user in etudiants %}
+        <li>{{ user }}</li>
+    {% endfor %}
+</ul>
+<a href="{{path('test3',{'id':1})}}">Aller à la page 3 </a>
+<img src="{{asset('images/photo.png')}}">
+{% endblock %}

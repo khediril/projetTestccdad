@@ -1,0 +1,3 @@
+{{  }}   afficher = echo
+{%    %}  autre que echo telque  if for extends
+{#    #}  commentaire
