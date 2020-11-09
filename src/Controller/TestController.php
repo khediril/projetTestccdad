@@ -22,7 +22,7 @@ class TestController extends AbstractController
         ]);*/
     }
     /**
-     * @Route("/test/test2", name="test2")
+     * @Route("/test2", name="test2")
      */
     public function index2(): Response
     {
@@ -30,8 +30,7 @@ class TestController extends AbstractController
         $message='bonjour ccdad1 2020 2021';
         $reponse= $this->render('test/test2.html.twig', ['etudiants'=>$tab,'msg'=>$message]);
         return $reponse;
-         
-  
+      
         
     }
     /**
@@ -43,6 +42,19 @@ class TestController extends AbstractController
         
         $reponse= $this->render('test/test3.html.twig', ['etudiant'=>$tab[$id]]);
         return $reponse;
+         
+  
+        
+    }
+     /**
+     * @Route("/test4", name="test4")
+     */
+    public function index4(): Response
+    {
+        $tab=['Ali4','Mohamed4','Iheb4','Salah4','foulen4'];
+        
+        
+        return $this->render('test/test4.html.twig', ['etudiant'=>$tab]);
          
   
         

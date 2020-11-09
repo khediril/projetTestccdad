@@ -1,0 +1,10 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Ajout{% endblock %}
+{% block name %}Ajout d'un nouveau produit {% endblock %}
+{% block body %}
+ 
+<h2> Produit ajouté avec succés ....</h2>
+Id du produit est :{{ prod.id }}
+<a href="{{ path("produit_list")}}">Liste de tous les produits</a>
+{% endblock %}
