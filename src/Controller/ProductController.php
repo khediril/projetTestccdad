@@ -40,4 +40,16 @@ class ProductController extends AbstractController
         
         return $this->render('product/liste.html.twig', ['produits'=>$produits ]);
     }
+    /**
+     * @Route("/product/{id}", name="produit_detail")
+     */
+    public function getProduit(ProduitRepository $repo,$id): Response
+    {
+         $produit=$repo->find($id);
+         //$produits=$this->getDoctrine()->getRepository(Produit::class)->findProduitEnPromo();
+   // if(!$produit)
+            //throw $this->createNotFoundException('Ce produit n\'existe pas');
+        
+        return $this->render('product/detail.html.twig', ['p'=>$produit ]);
+    }
 }

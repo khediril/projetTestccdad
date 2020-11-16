@@ -8,18 +8,16 @@
     <tr>
       <th scope="col">Id</th>
       <th scope="col">Nom</th>
-      <th scope="col">Description</th>
-      <th scope="col">Quantité</th>
+     
     </tr>
   </thead>
   <tbody>
     {% for p in produits %}
     <tr>
-      <th scope="row">{{ p.nom }}</th>
+      <th scope="row">{{ p.id }}</th>
     
-      <td>{{ p.description }}</td>
-      <td>{{ p.prix }}</td>
-      <td>{{ p.quantite }}</td>
+      <td><a href="{{ path('produit_detail',{id:p.id})}}">{{ p.nom }}</a></td>
+     
     </tr>
      {% endfor %} 
   </tbody>

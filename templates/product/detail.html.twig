@@ -1,0 +1,36 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}List{% endblock %}
+{% block name %}Resultat de la recherche{% endblock %}
+{% block body %}
+{% if p %}   
+   <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Description</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Quantité</th>
+    </tr>
+  </thead>
+  <tbody>
+   
+    <tr>
+      <th scope="row">{{ p.id }}</th>
+    
+      <td>{{ p.nom }}</td>
+      <td>{{ p.description }}</td>
+      <td>{{ p.prix }}</td>
+      <td>{{ p.quantite }}</td>
+    </tr>
+  
+ </tbody>
+</table>
+    
+
+  {% else %}
+     Id incorrecte, choisir un autre id 
+  {% endif %}   
+ 
+{% endblock %}
