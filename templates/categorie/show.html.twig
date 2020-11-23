@@ -1,0 +1,52 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Détail catégorie{% endblock %}
+{% block name %}Détail catégorie{% endblock %}
+
+{% block body %}
+    <h1>Categorie</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ categorie.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ categorie.nom }}</td>
+            </tr>
+        </tbody>
+    </table>
+   <hr>
+    <h2> Liste des produits de cette catégorie </h2>
+      <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nom</th>
+      
+     
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in categorie.produits %}
+    <tr>
+      <th scope="row">{{ p.id }}</th>
+    
+      <td>{{ p.nom }}</td>
+      
+     
+    </tr>
+     {% endfor %} 
+  </tbody>
+</table>
+
+   <hr>
+
+    <a href="{{ path('categorie_index') }}">back to list</a>
+
+    <a href="{{ path('categorie_edit', {'id': categorie.id}) }}">edit</a>
+
+    {{ include('categorie/_delete_form.html.twig') }}
+{% endblock %}

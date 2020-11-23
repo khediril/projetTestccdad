@@ -8,6 +8,7 @@
     <tr>
       <th scope="col">Id</th>
       <th scope="col">Nom</th>
+      <th>Categorie</th>
      
     </tr>
   </thead>
@@ -17,6 +18,7 @@
       <th scope="row">{{ p.id }}</th>
     
       <td><a href="{{ path('produit_detail',{id:p.id})}}">{{ p.nom }}</a></td>
+      <td> {{ p.categorie.nom}}</td>
      
     </tr>
      {% endfor %} 
