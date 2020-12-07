@@ -1,0 +1,28 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}List{% endblock %}
+{% block name %}Liste des Produits ayant le prix entre ({{pmin}},{{pamx}}){% endblock %}
+{% block body %}
+   <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nom</th>
+      <th>Categorie</th>
+      <th>Prix</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in produits %}
+    <tr>
+      <th scope="row">{{ p.id }}</th>
+    
+      <td><a href="{{ path('produit_detail',{id:p.id})}}">{{ p.nom }}</a></td>
+      <td> {{ p.categorie.nom}}</td>
+       <td> {{ p.prix }}</td>
+    </tr>
+     {% endfor %} 
+  </tbody>
+</table>
+{% endblock %}

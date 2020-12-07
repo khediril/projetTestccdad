@@ -3,11 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
-use App\Repository\ProduitRepository;
+use App\Entity\Categorie;
 use Doctrine\ORM\EntityManager;
+use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProductController extends AbstractController
@@ -52,4 +58,58 @@ class ProductController extends AbstractController
         
         return $this->render('product/detail.html.twig', ['p'=>$produit ]);
     }
+    /**
+     * @Route("/product/listparprix/{pmin}/{pmax}", name="produit_list_parprix")
+     */
+    public function getProduitsParPrix(ProduitRepository $repo,$pmin,$pmax): Response
+    {
+         $produits=$repo->chercherParPrix($pmin,$pmax);
+         //$produits=$this->getDoctrine()->getRepository(Produit::class)->findProduitEnPromo();
+        
+        
+        return $this->render('product/listeparprix.html.twig', ['produits'=>$produits,'pmin'=>$pmin,'pmax'=>$pmax ]);
+    }
+    /**
+     * @Route("/product1/ajout", name="produit_add")
+     */
+    public function addProduit(Request $request): Response
+    {
+         
+        $produit = new Produit();
+       // $task->setTask('Write a blog post');
+       // $task->setDueDate(new \DateTime('tomorrow'));
+
+        $form = $this->createFormBuilder($produit)
+            ->add('nom', TextType::class)
+            ->add('description', TextType::class)
+            ->add('prix', IntegerType::class)
+            ->add('quantite', IntegerType::class)
+            ->add('Categorie', EntityType::class, [
+                          'class' => Categorie::class,
+                          'choice_label' => 'nom',
+            
+            ])
+            ->add('save', SubmitType::class, ['label' => 'Ajouter produit'])
+            ->getForm();
+           
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                // $form->getData() holds the submitted values
+                // but, the original `$task` variable has also been updated
+                //$task = $form->getData();
+    
+                // ... perform some action, such as saving the task to the database
+                // for example, if Task is a Doctrine entity, save it!
+                 $entityManager = $this->getDoctrine()->getManager();
+                 $entityManager->persist($produit);
+                 $entityManager->flush();
+    
+                return $this->redirectToRoute('produit_list');
+            }
+        
+        return $this->render('product/ajoutproduit.html.twig', ['form' => $form->createView(),
+        ]);
+    }
+    
+
 }

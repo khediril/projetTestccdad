@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Client;
+use App\Form\ClientType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TestController extends AbstractController
 {
@@ -57,6 +59,20 @@ class TestController extends AbstractController
         return $this->render('test/test4.html.twig', ['etudiant'=>$tab]);
          
   
+        
+    }
+/**
+     * @Route("/testform", name="testform")
+     */
+    public function testForm(): Response
+    {
+        
+        $client=new Client();
+        $form = $this->createForm(ClientType::class, $client);
+        
+        return $this->render('test/ajoutClient.html.twig', ['monform'=>$form->createView()]);
+         
+       
         
     }
 

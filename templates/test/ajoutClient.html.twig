@@ -1,0 +1,11 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Ajout client
+{% endblock %}
+
+{% block body %}
+	{{form_start(monform)}}
+    {{form_widget(monform)}}
+    <input type="submit" value="Ajouter">
+    {{form_end(monform)}}
+{% endblock %}

@@ -51,4 +51,21 @@ class ProduitRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function chercherParPrix($pmin,$pmax)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT p
+            FROM App\Entity\Produit p
+            WHERE p.prix > :pmin and p.prix < :pmax
+            ORDER BY p.prix ASC'
+        )->setParameter('pmin', $pmin)
+        ->setParameter('pmax',$pmax);
+      
+        $tabs= $query->getResult();
+        // returns an array of Product objects
+        return $tabs;
+
+    }
 }
