@@ -1,27 +1,50 @@
 {% extends 'base2.html.twig' %}
 
-{% block title %}List{% endblock %}
-{% block name %}Liste de tous les Produits{% endblock %}
-{% block body %}
-   <table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Nom</th>
-      <th>Categorie</th>
-     
-    </tr>
-  </thead>
-  <tbody>
-    {% for p in produits %}
-    <tr>
-      <th scope="row">{{ p.id }}</th>
-    
-      <td><a href="{{ path('produit_detail',{id:p.id})}}">{{ p.nom }}</a></td>
-      <td> {{ p.categorie.nom}}</td>
-     
-    </tr>
-     {% endfor %} 
-  </tbody>
-</table>
+{% block title %}List
 {% endblock %}
+{% block name %}Liste de tous les Produits
+{% endblock %}
+{% block body %}
+
+	{% for message in app.flashes('success') %}
+		<div class="flash-notice">
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		</div>
+
+
+	{% endfor %}
+	<div class="alert alert-primary" role="alert">
+		<strong>Utilisateur connecté :
+			{{ username }} <span><a href="{{ path('app_logout')}}">Déconnecté</a></span></strong>
+	</div>
+	<p>Username :
+		{{ app.user.username }}
+    {{ dump(app) }}</p>
+</div>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">Id</th>
+			<th scope="col">Nom</th>
+			<th>Categorie</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		{% for p in produits %}
+			<tr>
+				<th scope="row">{{ p.id }}</th>
+
+				<td>
+					<a href="{{ path('produit_detail',{id:p.id})}}">{{ p.nom }}</a>
+				</td>
+				<td>
+					{{ p.categorie.nom}}</td>
+
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>{% endblock %}

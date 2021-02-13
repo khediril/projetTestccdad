@@ -2,14 +2,23 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Categorie;
 use Faker\Factory;
+use App\Entity\User;
 use App\Entity\Produit;
+use App\Entity\Categorie;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
+    private $passwordEncoder;
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+    
+    
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create();
@@ -64,7 +73,19 @@ class AppFixtures extends Fixture
          $c->setNom("catregorie".$i);
          $manager->persist($c);
         }*/
+       
 
+        for ($i = 1; $i < 3; $i++) {
+            $user = new User();
+            $user->setUsername('user'.$i);
+            $user->setPassword($this->passwordEncoder->encodePassword(
+             $user,
+             'user'.$i
+            ));
+
+           
+            $manager->persist($user);
+        }
         $manager->flush();
     }
 }
